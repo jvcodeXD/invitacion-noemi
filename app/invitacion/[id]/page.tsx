@@ -296,64 +296,64 @@ export default function InvitacionPage() {
                 
                 {/* Nombre de Noemí - Diseño Elegante Mejorado */}
 
-{/* Nombre de Noemí - Como Imagen MÁS GRANDE */}
-<Box
-  sx={{
-    textAlign: 'center',
-    mb: 3,
-  }}
->
-  {/* Decoración superior */}
-  <Box
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 2,
-      mb: 3,
-    }}
-  >
-    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
-    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
-    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
-  </Box>
+                {/* Nombre de Noemí - Como Imagen MÁS GRANDE */}
+                <Box
+                  sx={{
+                    textAlign: 'center',
+                    mb: 3,
+                  }}
+                >
+                  {/* Decoración superior */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 2,
+                      mb: 3,
+                    }}
+                  >
+                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
+                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
+                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
+                  </Box>
 
-  {/* Nombre como imagen - MÁS GRANDE */}
-  <Box
-    sx={{
-      position: 'relative',
-      width: '100%',
-      maxWidth: { xs: 350, md: 600 }, // Aumentado de 300/500 a 350/600
-      height: { xs: 100, md: 150 },   // Aumentado de 80/120 a 100/150
-      mx: 'auto',
-      mb: 2,
-      filter: 'drop-shadow(0 4px 20px rgba(201, 169, 97, 0.8))',
-    }}
-  >
-    <Image
-      src="/images/nombre-noemi.png"
-      alt="Noemí Rocha Choque"
-      fill
-      style={{ objectFit: 'contain' }}
-      priority
-    />
-  </Box>
+                  {/* Nombre como imagen - MÁS GRANDE */}
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      width: '100%',
+                      maxWidth: { xs: 350, md: 600 }, // Aumentado de 300/500 a 350/600
+                      height: { xs: 100, md: 150 },   // Aumentado de 80/120 a 100/150
+                      mx: 'auto',
+                      mb: 2,
+                      filter: 'drop-shadow(0 4px 20px rgba(201, 169, 97, 0.8))',
+                    }}
+                  >
+                    <Image
+                      src="/images/nombre-noemi.png"
+                      alt="Noemí Rocha Choque"
+                      fill
+                      style={{ objectFit: 'contain' }}
+                      priority
+                    />
+                  </Box>
 
-  {/* Decoración inferior */}
-  <Box
-    sx={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 2,
-      mt: 3,
-    }}
-  >
-    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
-    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
-    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
-  </Box>
-</Box>
+                  {/* Decoración inferior */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: 2,
+                      mt: 3,
+                    }}
+                  >
+                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
+                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
+                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
+                  </Box>
+                </Box>
 
                 {/* Carrera con color de la imagen */}
                 <Typography
