@@ -11,9 +11,9 @@ import {
   Typography,
   Paper,
   CircularProgress,
-  Button,
   Stack,
   Divider,
+  Link as MuiLink,
 } from '@mui/material';
 import {
   School as GraduationCapIcon,
@@ -21,6 +21,7 @@ import {
   LocationOn as MapPinIcon,
   AccessTime as ClockIcon,
   Celebration as CelebrationIcon,
+  DirectionsRun as DirectionsIcon,
 } from '@mui/icons-material';
 
 interface Guest {
@@ -117,6 +118,7 @@ export default function InvitacionPage() {
           sx={{
             borderRadius: 4,
             overflow: 'hidden',
+            background: '#f5efe6', // Fondo beige/crema en lugar de blanco
             animation: 'fadeInUp 0.8s ease-out',
             '@keyframes fadeInUp': {
               from: {
@@ -130,38 +132,51 @@ export default function InvitacionPage() {
             },
           }}
         >
-          {/* Header con logo */}
+          {/* Header decorativo con degradado - SIN logo */}
           <Box
             sx={{
               background: 'linear-gradient(180deg, #6b1b3d 0%, #4a1229 100%)',
-              py: 3,
-              px: 2,
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
+              py: 2,
+              position: 'relative',
+              '&::after': {
+                content: '""',
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: 'linear-gradient(90deg, #c9a961 0%, #d4b67a 50%, #c9a961 100%)',
+              },
             }}
-          >
-            <Box
-              sx={{
-                width: { xs: 120, md: 150 },
-                height: { xs: 120, md: 150 },
-                position: 'relative',
-                borderRadius: '20%',
-                overflow: 'hidden',
-              }}
-            >
-              <Image
-                src="/images/logo-promocion.png"
-                alt="Promoción 20-25 Bicentenario"
-                fill
-                style={{ objectFit: 'contain' }}
-                priority
-              />
-            </Box>
-          </Box>
+          />
 
           {/* Contenido */}
           <Box sx={{ p: { xs: 3, md: 6 } }}>
+            {/* Promoción 2025 como texto decorativo */}
+            <Box sx={{ textAlign: 'center', mb: 3 }}>
+              <Typography
+                variant="h6"
+                sx={{
+                  color: '#6b1b3d',
+                  fontWeight: 700,
+                  letterSpacing: '2px',
+                  textTransform: 'uppercase',
+                  fontSize: { xs: '0.9rem', md: '1rem' },
+                }}
+              >
+                Promoción 2025
+              </Typography>
+              <Box
+                sx={{
+                  width: 60,
+                  height: 2,
+                  background: '#c9a961',
+                  mx: 'auto',
+                  mt: 1,
+                }}
+              />
+            </Box>
+
             {/* Foto de la graduada */}
             <Box
               sx={{
@@ -171,8 +186,8 @@ export default function InvitacionPage() {
             >
               <Box
                 sx={{
-                  width: { xs: 180, md: 220 },
-                  height: { xs: 180, md: 220 },
+                  width: { xs: 200, md: 240 },
+                  height: { xs: 200, md: 240 },
                   mx: 'auto',
                   mb: 3,
                   position: 'relative',
@@ -195,68 +210,87 @@ export default function InvitacionPage() {
               </Box>
             </Box>
 
-            {/* Título */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
+            {/* Título con nombre destacado */}
+            <Box sx={{ textAlign: 'center', mb: 3 }}>
               <Typography
                 variant="h2"
                 sx={{
-                  fontSize: { xs: '2rem', md: '3rem' },
+                  fontSize: { xs: '2.5rem', md: '3.5rem' },
                   fontWeight: 700,
                   color: '#4a1229',
-                  mb: 1,
+                  mb: 2,
+                  textShadow: '2px 2px 4px rgba(0,0,0,0.1)',
                 }}
               >
                 ¡Graduación!
               </Typography>
-              <Typography
-                variant="h4"
+              
+              {/* Nombre de Noemí MÁS GRANDE Y DESTACADO */}
+              <Box
                 sx={{
-                  fontSize: { xs: '1.5rem', md: '2rem' },
-                  fontWeight: 600,
-                  color: '#6b1b3d',
-                  mb: 1,
+                  background: 'linear-gradient(135deg, #6b1b3d 0%, #8b2350 100%)',
+                  borderRadius: 3,
+                  py: 3,
+                  px: 2,
+                  mb: 2,
+                  boxShadow: '0 8px 20px rgba(107, 27, 61, 0.3)',
                 }}
               >
-                Noemí Rocha Choque
-              </Typography>
+                <Typography
+                  variant="h3"
+                  sx={{
+                    fontSize: { xs: '2rem', md: '2.8rem' },
+                    fontWeight: 800,
+                    color: 'white',
+                    letterSpacing: '0.5px',
+                  }}
+                >
+                  Noemí Rocha Choque
+                </Typography>
+              </Box>
+
+              {/* Carrera con color de la imagen */}
               <Typography
-                variant="h6"
+                variant="h5"
                 sx={{
-                  color: '#8b2350',
-                  fontWeight: 400,
-                  fontStyle: 'italic',
+                  color: '#2563eb', // Azul similar al de la imagen
+                  fontWeight: 700,
+                  fontSize: { xs: '1.3rem', md: '1.6rem' },
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  mb: 1,
                 }}
               >
                 Sistemas Informáticos
               </Typography>
+
+              {/* Nombre del colegio más grande */}
+              <Typography
+                variant="h6"
+                sx={{
+                  color: '#4a1229',
+                  fontWeight: 600,
+                  fontSize: { xs: '1.2rem', md: '1.4rem' },
+                  mt: 2,
+                }}
+              >
+                Colegio Nuestra Señora del Socavón
+              </Typography>
+
               <Divider
                 sx={{
                   width: 128,
                   height: 3,
                   mx: 'auto',
-                  mt: 2,
+                  mt: 3,
                   background: 'linear-gradient(90deg, transparent, #c9a961, transparent)',
                   border: 'none',
                 }}
               />
             </Box>
 
-            {/* Escudo del colegio */}
-            <Box sx={{ textAlign: 'center', mb: 4 }}>
-              <Typography
-                variant="body1"
-                sx={{
-                  color: '#2c2421',
-                  fontWeight: 600,
-                  fontSize: '1.1rem',
-                }}
-              >
-                Colegio Nuestra Señora del Socavón
-              </Typography>
-            </Box>
-
-            {/* Mensaje personal */}
-            <Box sx={{ textAlign: 'center', mb: 5 }}>
+            {/* Mensaje personal familiar */}
+            <Box sx={{ textAlign: 'center', mb: 5, mt: 5 }}>
               <Typography
                 variant="h6"
                 sx={{ color: '#4a1229', fontWeight: 400, mb: 2 }}
@@ -264,24 +298,60 @@ export default function InvitacionPage() {
                 Querido/a{' '}
                 <Box
                   component="span"
-                  sx={{ fontWeight: 700, color: '#6b1b3d' }}
+                  sx={{ fontWeight: 900, color: '#6b1b3d' }}
                 >
                   {guest.nombre} {guest.apellido}
                 </Box>
               </Typography>
-              <Typography
-                variant="body1"
+              
+              <Paper
+                elevation={0}
                 sx={{
-                  color: '#2c2421',
-                  lineHeight: 1.8,
-                  maxWidth: 600,
+                  background: 'linear-gradient(135deg, #faf8f3 0%, #ffffff 100%)',
+                  p: 4,
+                  borderRadius: 3,
+                  border: '2px solid #d4b67a',
+                  maxWidth: 700,
                   mx: 'auto',
-                  fontSize: '1.05rem',
                 }}
               >
-                Tengo el honor de invitarte a celebrar un momento muy especial en mi vida.
-                Tu presencia haría este día aún más memorable.
-              </Typography>
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#2c2421',
+                    lineHeight: 2,
+                    fontSize: { xs: '1.05rem', md: '1.15rem' },
+                    fontWeight: 400,
+                  }}
+                >
+                  Te invitamos a la graduación de nuestra hija{' '}
+                  <Box
+                    component="span"
+                    sx={{
+                      fontWeight: 800,
+                      color: '#6b1b3d',
+                      fontSize: '1.2em',
+                    }}
+                  >
+                    Noemí
+                  </Box>
+                  {' '}que se llevará a cabo en el Hall de la Gobernación.
+                </Typography>
+                
+                <Divider sx={{ my: 2, borderColor: '#d4b67a' }} />
+                
+                <Typography
+                  variant="body1"
+                  sx={{
+                    color: '#2c2421',
+                    lineHeight: 2,
+                    fontSize: { xs: '1.05rem', md: '1.15rem' },
+                    fontWeight: 400,
+                  }}
+                >
+                  Pasado el acto, les invitamos a compartir con la familia en un festejo especial.
+                </Typography>
+              </Paper>
             </Box>
 
             {/* Detalles del ACTO DE GRADUACIÓN */}
@@ -292,9 +362,9 @@ export default function InvitacionPage() {
                 borderColor: '#c9a961',
                 borderRadius: 3,
                 py: 4,
-                px: 2,
+                px: 3,
                 mb: 3,
-                background: 'linear-gradient(180deg, #f5f3f0 0%, #ffffff 100%)',
+                background: 'linear-gradient(180deg, #faf8f3 0%, #ffffff 100%)',
               }}
             >
               <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={3}>
@@ -319,7 +389,7 @@ export default function InvitacionPage() {
                   spacing={2}
                 >
                   <CalendarIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
-                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem', fontWeight: 500 }}>
                     <strong>Fecha:</strong> Jueves, 12 de Diciembre 2024
                   </Typography>
                 </Stack>
@@ -331,7 +401,7 @@ export default function InvitacionPage() {
                   spacing={2}
                 >
                   <ClockIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
-                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem', fontWeight: 500 }}>
                     <strong>Hora:</strong> 14:30 (2:30 PM)
                   </Typography>
                 </Stack>
@@ -343,16 +413,38 @@ export default function InvitacionPage() {
                   spacing={2}
                 >
                   <MapPinIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      color: '#2c2421', 
-                      fontSize: '1.05rem',
-                      textAlign: { xs: 'center', sm: 'left' },
-                    }}
-                  >
-                    <strong>Lugar:</strong> Hall de la Gobernación de Oruro
-                  </Typography>
+                  <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                    <Typography 
+                      variant="body1" 
+                      sx={{ 
+                        color: '#2c2421', 
+                        fontSize: '1.05rem',
+                        fontWeight: 500,
+                      }}
+                    >
+                      <strong>Lugar:</strong> Hall de la Gobernación de Oruro
+                    </Typography>
+                    <MuiLink
+                      href="https://maps.app.goo.gl/HkP1VJRQRa5S7sQL7"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        color: '#2563eb',
+                        textDecoration: 'none',
+                        fontSize: '0.9rem',
+                        mt: 0.5,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <DirectionsIcon sx={{ fontSize: 18 }} />
+                      Ver en Google Maps
+                    </MuiLink>
+                  </Box>
                 </Stack>
               </Stack>
             </Paper>
@@ -365,7 +457,7 @@ export default function InvitacionPage() {
                 borderColor: '#d4b67a',
                 borderRadius: 3,
                 py: 4,
-                px: 2,
+                px: 3,
                 mb: 4,
                 background: 'linear-gradient(180deg, #fffbf5 0%, #ffffff 100%)',
               }}
@@ -380,7 +472,7 @@ export default function InvitacionPage() {
                     fontWeight: 700,
                   }}
                 >
-                  Festejo de Celebración
+                  Festejo con la Familia
                 </Typography>
               </Stack>
 
@@ -392,8 +484,8 @@ export default function InvitacionPage() {
                   spacing={2}
                 >
                   <CalendarIcon sx={{ color: '#c9a961', fontSize: 28 }} />
-                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
-                    <strong>Fecha:</strong> Después del acto de graduación
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem', fontWeight: 500 }}>
+                    <strong>Cuándo:</strong> Después del acto de graduación
                   </Typography>
                 </Stack>
 
@@ -404,22 +496,44 @@ export default function InvitacionPage() {
                   spacing={2}
                 >
                   <MapPinIcon sx={{ color: '#c9a961', fontSize: 28 }} />
-                  <Typography 
-                    variant="body1" 
-                    sx={{ 
-                      color: '#2c2421', 
-                      fontSize: '1.05rem',
-                      textAlign: { xs: 'center', sm: 'left' },
-                    }}
-                  >
-                    <strong>Lugar:</strong> Pagador entre San Felipe y Arce N° 6660
-                  </Typography>
+                  <Box sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
+                    <Typography 
+                      variant="body1" 
+                      sx={{ 
+                        color: '#2c2421', 
+                        fontSize: '1.05rem',
+                        fontWeight: 500,
+                      }}
+                    >
+                      <strong>Lugar:</strong> Pagador entre San Felipe y Arce N° 6660
+                    </Typography>
+                    <MuiLink
+                      href="https://www.google.com/maps/search/?api=1&query=Pagador+entre+San+Felipe+y+Arce+6660+Oruro"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: 0.5,
+                        color: '#2563eb',
+                        textDecoration: 'none',
+                        fontSize: '0.9rem',
+                        mt: 0.5,
+                        '&:hover': {
+                          textDecoration: 'underline',
+                        },
+                      }}
+                    >
+                      <DirectionsIcon sx={{ fontSize: 18 }} />
+                      Ver en Google Maps
+                    </MuiLink>
+                  </Box>
                 </Stack>
               </Stack>
 
               <Box sx={{ textAlign: 'center', mt: 3, p: 2, bgcolor: '#fffbf5', borderRadius: 2 }}>
-                <Typography variant="body2" sx={{ color: '#8b2350', fontStyle: 'italic' }}>
-                  ¡Te esperamos para continuar la celebración! 🎉
+                <Typography variant="body1" sx={{ color: '#8b2350', fontStyle: 'italic', fontWeight: 500 }}>
+                  ¡Será un honor compartir este momento especial contigo! 🎉
                 </Typography>
               </Box>
             </Paper>
@@ -441,7 +555,10 @@ export default function InvitacionPage() {
                   src="/images/foto-grupal.jpeg"
                   alt="Promoción Sistemas Informáticos 2025"
                   fill
-                  style={{ objectFit: 'cover', objectPosition: 'center 10%' }}
+                  style={{ 
+                    objectFit: 'cover',
+                    objectPosition: 'center 10%',
+                  }}
                 />
               </Box>
               <Typography
@@ -454,7 +571,7 @@ export default function InvitacionPage() {
                   fontStyle: 'italic',
                 }}
               >
-                Promoción 20-25 - Sistemas Informáticos
+                Promoción 2025 - Sistemas Informáticos
               </Typography>
             </Box>
 
@@ -463,7 +580,7 @@ export default function InvitacionPage() {
               <Paper
                 elevation={0}
                 sx={{
-                  background: '#f5f3f0',
+                  background: '#faf8f3',
                   p: 3,
                   borderRadius: 2,
                   mb: 4,
@@ -482,7 +599,7 @@ export default function InvitacionPage() {
             {/* Nota final */}
             <Box sx={{ textAlign: 'center', mt: 4 }}>
               <Typography variant="body2" sx={{ color: '#6b7280' }}>
-                ¡Espero contar con tu presencia en este día tan especial!
+                ¡Tu presencia hará este día aún más especial!
               </Typography>
             </Box>
           </Box>
