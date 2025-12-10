@@ -26,8 +26,13 @@ import {
   Chip,
   CircularProgress,
   Paper,
-  Divider,
+  Snackbar,
   Alert,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
 } from '@mui/material';
 import {
   PersonAdd as UserPlusIcon,
@@ -56,6 +61,25 @@ export default function AdminPage() {
   });
   const [copiedId, setCopiedId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  
+  // Snackbar states
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: '',
+    severity: 'success' as 'success' | 'error' | 'warning' | 'info',
+  });
+
+  // Dialog states
+  const [deleteDialog, setDeleteDialog] = useState({
+    open: false,
+    guestId: '',
+    guestName: '',
+  });
+
+  const [validationDialog, setValidationDialog] = useState({
+    open: false,
+    message: '',
+  });
 
   useEffect(() => {
     fetchGuests();
@@ -72,7 +96,11 @@ export default function AdminPage() {
       setGuests(guestsData);
     } catch (error) {
       console.error('Error al cargar invitados:', error);
-      alert('Error al cargar invitados. Verifica tu configuración de Firebase.');
+      setSnackbar({
+        open: true,
+        message: 'Error al cargar invitados. Verifica tu configuración de Firebase.',
+        severity: 'error',
+      });
     } finally {
       setLoading(false);
     }
@@ -82,7 +110,10 @@ export default function AdminPage() {
     e.preventDefault();
     
     if (!formData.nombre.trim() || !formData.apellido.trim()) {
-      alert('Por favor completa nombre y apellido');
+      setValidationDialog({
+        open: true,
+        message: 'Por favor completa nombre y apellido',
+      });
       return;
     }
 
@@ -98,31 +129,65 @@ export default function AdminPage() {
 
       setFormData({ nombre: '', apellido: '', mensaje: '' });
       await fetchGuests();
-      alert('¡Invitado agregado exitosamente!');
+      
+      setSnackbar({
+        open: true,
+        message: `¡${formData.nombre} ${formData.apellido} agregado exitosamente!`,
+        severity: 'success',
+      });
     } catch (error) {
       console.error('Error al agregar invitado:', error);
-      alert('Error al agregar invitado. Verifica tu configuración de Firebase.');
+      setSnackbar({
+        open: true,
+        message: 'Error al agregar invitado. Verifica tu configuración de Firebase.',
+        severity: 'error',
+      });
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const handleDelete = async (id: string, nombre: string) => {
-    if (!confirm(`¿Estás seguro de eliminar a ${nombre}?`)) return;
+  const handleDeleteClick = (id: string, nombre: string, apellido: string) => {
+    setDeleteDialog({
+      open: true,
+      guestId: id,
+      guestName: `${nombre} ${apellido}`,
+    });
+  };
 
+  const handleDeleteConfirm = async () => {
     try {
-      await deleteDoc(doc(db, 'invitados', id));
+      await deleteDoc(doc(db, 'invitados', deleteDialog.guestId));
       await fetchGuests();
+      
+      setSnackbar({
+        open: true,
+        message: `${deleteDialog.guestName} eliminado correctamente`,
+        severity: 'info',
+      });
     } catch (error) {
       console.error('Error al eliminar invitado:', error);
-      alert('Error al eliminar invitado');
+      setSnackbar({
+        open: true,
+        message: 'Error al eliminar invitado',
+        severity: 'error',
+      });
+    } finally {
+      setDeleteDialog({ open: false, guestId: '', guestName: '' });
     }
   };
 
-  const copyInvitationUrl = (id: string) => {
+  const copyInvitationUrl = (id: string, nombre: string, apellido: string) => {
     const url = `${window.location.origin}/invitacion/${id}`;
     navigator.clipboard.writeText(url);
     setCopiedId(id);
+    
+    setSnackbar({
+      open: true,
+      message: `URL copiada para ${nombre} ${apellido}`,
+      severity: 'success',
+    });
+    
     setTimeout(() => setCopiedId(null), 2000);
   };
 
@@ -130,11 +195,15 @@ export default function AdminPage() {
     window.open(`/invitacion/${id}`, '_blank');
   };
 
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
+
   return (
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #1e1b4b 0%, #581c87 50%, #1e1b4b 100%)',
+        background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 50%, #2c1810 100%)',
         py: { xs: 4, md: 8 },
         px: 2,
       }}
@@ -155,7 +224,7 @@ export default function AdminPage() {
           </Typography>
           <Typography
             variant="h6"
-            sx={{ color: '#c084fc', mb: 3, fontWeight: 300 }}
+            sx={{ color: '#d4b67a', mb: 3, fontWeight: 300 }}
           >
             Gestiona las invitaciones de graduación
           </Typography>
@@ -163,9 +232,9 @@ export default function AdminPage() {
             icon={<UsersIcon />}
             label={`${guests.length} ${guests.length === 1 ? 'invitado' : 'invitados'} registrados`}
             sx={{
-              background: 'rgba(168, 85, 247, 0.2)',
-              color: '#c084fc',
-              border: '1px solid rgba(168, 85, 247, 0.3)',
+              background: 'rgba(201, 169, 97, 0.2)',
+              color: '#d4b67a',
+              border: '1px solid rgba(201, 169, 97, 0.3)',
               fontSize: '1rem',
               py: 3,
             }}
@@ -186,7 +255,7 @@ export default function AdminPage() {
               }}
             >
               <Stack direction="row" alignItems="center" spacing={2} mb={3}>
-                <UserPlusIcon sx={{ fontSize: 32, color: '#c084fc' }} />
+                <UserPlusIcon sx={{ fontSize: 32, color: '#d4b67a' }} />
                 <Typography variant="h5" sx={{ color: 'white', fontWeight: 600 }}>
                   Agregar Invitado
                 </Typography>
@@ -208,14 +277,14 @@ export default function AdminPage() {
                           borderColor: 'rgba(255, 255, 255, 0.2)',
                         },
                         '&:hover fieldset': {
-                          borderColor: 'rgba(168, 85, 247, 0.5)',
+                          borderColor: 'rgba(201, 169, 97, 0.5)',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#a855f7',
+                          borderColor: '#d4b67a',
                         },
                       },
                       '& .MuiInputLabel-root': {
-                        color: '#c084fc',
+                        color: '#d4b67a',
                       },
                     }}
                   />
@@ -234,14 +303,14 @@ export default function AdminPage() {
                           borderColor: 'rgba(255, 255, 255, 0.2)',
                         },
                         '&:hover fieldset': {
-                          borderColor: 'rgba(168, 85, 247, 0.5)',
+                          borderColor: 'rgba(201, 169, 97, 0.5)',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#a855f7',
+                          borderColor: '#d4b67a',
                         },
                       },
                       '& .MuiInputLabel-root': {
-                        color: '#c084fc',
+                        color: '#d4b67a',
                       },
                     }}
                   />
@@ -261,14 +330,14 @@ export default function AdminPage() {
                           borderColor: 'rgba(255, 255, 255, 0.2)',
                         },
                         '&:hover fieldset': {
-                          borderColor: 'rgba(168, 85, 247, 0.5)',
+                          borderColor: 'rgba(201, 169, 97, 0.5)',
                         },
                         '&.Mui-focused fieldset': {
-                          borderColor: '#a855f7',
+                          borderColor: '#d4b67a',
                         },
                       },
                       '& .MuiInputLabel-root': {
-                        color: '#c084fc',
+                        color: '#d4b67a',
                       },
                     }}
                   />
@@ -280,17 +349,17 @@ export default function AdminPage() {
                     disabled={isSubmitting}
                     fullWidth
                     sx={{
-                      background: 'linear-gradient(90deg, #9333ea 0%, #ec4899 100%)',
+                      background: 'linear-gradient(90deg, #6b1b3d 0%, #8b2350 100%)',
                       color: 'white',
                       py: 1.5,
                       fontSize: '1rem',
                       fontWeight: 600,
                       '&:hover': {
-                        background: 'linear-gradient(90deg, #7e22ce 0%, #db2777 100%)',
+                        background: 'linear-gradient(90deg, #4a1229 0%, #6b1b3d 100%)',
                         transform: 'translateY(-2px)',
                       },
                       '&:disabled': {
-                        background: 'rgba(147, 51, 234, 0.3)',
+                        background: 'rgba(107, 27, 61, 0.3)',
                         color: 'rgba(255, 255, 255, 0.5)',
                       },
                     }}
@@ -315,7 +384,7 @@ export default function AdminPage() {
               }}
             >
               <Stack direction="row" alignItems="center" spacing={2} mb={3}>
-                <UsersIcon sx={{ fontSize: 32, color: '#c084fc' }} />
+                <UsersIcon sx={{ fontSize: 32, color: '#d4b67a' }} />
                 <Typography variant="h5" sx={{ color: 'white', fontWeight: 600 }}>
                   Lista de Invitados
                 </Typography>
@@ -323,18 +392,18 @@ export default function AdminPage() {
 
               {loading ? (
                 <Box sx={{ textAlign: 'center', py: 8 }}>
-                  <CircularProgress size={60} sx={{ color: '#a855f7' }} />
-                  <Typography sx={{ color: '#c084fc', mt: 2 }}>
+                  <CircularProgress size={60} sx={{ color: '#d4b67a' }} />
+                  <Typography sx={{ color: '#d4b67a', mt: 2 }}>
                     Cargando invitados...
                   </Typography>
                 </Box>
               ) : guests.length === 0 ? (
                 <Box sx={{ textAlign: 'center', py: 8 }}>
-                  <UsersIcon sx={{ fontSize: 64, color: 'rgba(168, 85, 247, 0.3)', mb: 2 }} />
-                  <Typography sx={{ color: '#c084fc', mb: 1 }}>
+                  <UsersIcon sx={{ fontSize: 64, color: 'rgba(212, 182, 122, 0.3)', mb: 2 }} />
+                  <Typography sx={{ color: '#d4b67a', mb: 1 }}>
                     Aún no hay invitados registrados
                   </Typography>
-                  <Typography sx={{ color: 'rgba(192, 132, 252, 0.7)', fontSize: '0.875rem' }}>
+                  <Typography sx={{ color: 'rgba(212, 182, 122, 0.7)', fontSize: '0.875rem' }}>
                     Agrega tu primer invitado usando el formulario
                   </Typography>
                 </Box>
@@ -353,10 +422,10 @@ export default function AdminPage() {
                       borderRadius: '10px',
                     },
                     '&::-webkit-scrollbar-thumb': {
-                      background: 'rgba(168, 85, 247, 0.5)',
+                      background: 'rgba(201, 169, 97, 0.5)',
                       borderRadius: '10px',
                       '&:hover': {
-                        background: 'rgba(168, 85, 247, 0.7)',
+                        background: 'rgba(201, 169, 97, 0.7)',
                       },
                     },
                   }}
@@ -382,14 +451,14 @@ export default function AdminPage() {
                             {guest.mensaje && (
                               <Typography
                                 variant="body2"
-                                sx={{ color: '#c084fc', fontStyle: 'italic', mt: 1 }}
+                                sx={{ color: '#d4b67a', fontStyle: 'italic', mt: 1 }}
                               >
                                 "{guest.mensaje}"
                               </Typography>
                             )}
                           </Box>
                           <IconButton
-                            onClick={() => handleDelete(guest.id, guest.nombre)}
+                            onClick={() => handleDeleteClick(guest.id, guest.nombre, guest.apellido)}
                             sx={{ color: '#f87171' }}
                           >
                             <DeleteIcon />
@@ -401,14 +470,14 @@ export default function AdminPage() {
                           variant="outlined"
                           size="small"
                           startIcon={copiedId === guest.id ? <CheckIcon /> : <CopyIcon />}
-                          onClick={() => copyInvitationUrl(guest.id)}
+                          onClick={() => copyInvitationUrl(guest.id, guest.nombre, guest.apellido)}
                           fullWidth
                           sx={{
-                            borderColor: 'rgba(168, 85, 247, 0.5)',
-                            color: '#c084fc',
+                            borderColor: 'rgba(201, 169, 97, 0.5)',
+                            color: '#d4b67a',
                             '&:hover': {
-                              borderColor: '#a855f7',
-                              background: 'rgba(168, 85, 247, 0.1)',
+                              borderColor: '#d4b67a',
+                              background: 'rgba(201, 169, 97, 0.1)',
                             },
                           }}
                         >
@@ -417,9 +486,9 @@ export default function AdminPage() {
                         <IconButton
                           onClick={() => openInvitation(guest.id)}
                           sx={{
-                            color: '#ec4899',
+                            color: '#d4b67a',
                             '&:hover': {
-                              background: 'rgba(236, 72, 153, 0.1)',
+                              background: 'rgba(201, 169, 97, 0.1)',
                             },
                           }}
                         >
@@ -439,9 +508,9 @@ export default function AdminPage() {
           elevation={24}
           sx={{
             mt: 6,
-            background: 'rgba(147, 51, 234, 0.15)',
+            background: 'rgba(107, 27, 61, 0.15)',
             backdropFilter: 'blur(10px)',
-            border: '1px solid rgba(147, 51, 234, 0.3)',
+            border: '1px solid rgba(107, 27, 61, 0.3)',
             borderRadius: 4,
             p: 4,
           }}
@@ -450,24 +519,112 @@ export default function AdminPage() {
             📋 Instrucciones de Uso
           </Typography>
           <Stack spacing={2}>
-            <Typography sx={{ color: '#c084fc' }}>
+            <Typography sx={{ color: '#d4b67a' }}>
               <strong>1.</strong> Agrega los datos del invitado en el formulario (nombre y apellido son obligatorios)
             </Typography>
-            <Typography sx={{ color: '#c084fc' }}>
+            <Typography sx={{ color: '#d4b67a' }}>
               <strong>2.</strong> Opcionalmente, puedes agregar un mensaje personalizado para ese invitado
             </Typography>
-            <Typography sx={{ color: '#c084fc' }}>
+            <Typography sx={{ color: '#d4b67a' }}>
               <strong>3.</strong> Una vez agregado, haz clic en "Copiar URL" para obtener el enlace de su invitación
             </Typography>
-            <Typography sx={{ color: '#c084fc' }}>
+            <Typography sx={{ color: '#d4b67a' }}>
               <strong>4.</strong> Comparte ese enlace único con el invitado (por WhatsApp, email, etc.)
             </Typography>
-            <Typography sx={{ color: '#c084fc' }}>
+            <Typography sx={{ color: '#d4b67a' }}>
               <strong>5.</strong> Cada invitado tendrá una invitación personalizada con su nombre
             </Typography>
           </Stack>
         </Paper>
       </Container>
+
+      {/* Snackbar para notificaciones */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={4000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={handleCloseSnackbar}
+          severity={snackbar.severity}
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
+
+      {/* Dialog de confirmación de eliminación */}
+      <Dialog
+        open={deleteDialog.open}
+        onClose={() => setDeleteDialog({ open: false, guestId: '', guestName: '' })}
+        PaperProps={{
+          sx: {
+            background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 100%)',
+            border: '1px solid rgba(201, 169, 97, 0.3)',
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: 'white' }}>
+          Confirmar Eliminación
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ color: '#d4b67a' }}>
+            ¿Estás seguro de que deseas eliminar a <strong>{deleteDialog.guestName}</strong>?
+            Esta acción no se puede deshacer.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setDeleteDialog({ open: false, guestId: '', guestName: '' })}
+            sx={{ color: '#d4b67a' }}
+          >
+            Cancelar
+          </Button>
+          <Button
+            onClick={handleDeleteConfirm}
+            variant="contained"
+            sx={{
+              background: '#dc2626',
+              '&:hover': {
+                background: '#991b1b',
+              },
+            }}
+          >
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog de validación */}
+      <Dialog
+        open={validationDialog.open}
+        onClose={() => setValidationDialog({ open: false, message: '' })}
+        PaperProps={{
+          sx: {
+            background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 100%)',
+            border: '1px solid rgba(201, 169, 97, 0.3)',
+          },
+        }}
+      >
+        <DialogTitle sx={{ color: 'white' }}>
+          Campos Requeridos
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText sx={{ color: '#d4b67a' }}>
+            {validationDialog.message}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => setValidationDialog({ open: false, message: '' })}
+            sx={{ color: '#d4b67a' }}
+          >
+            Entendido
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

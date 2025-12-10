@@ -20,6 +20,7 @@ import {
   CalendarMonth as CalendarIcon,
   LocationOn as MapPinIcon,
   AccessTime as ClockIcon,
+  Celebration as CelebrationIcon,
 } from '@mui/icons-material';
 
 interface Guest {
@@ -64,12 +65,12 @@ export default function InvitacionPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 50%, #991b1b 100%)',
+          background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 50%, #2c1810 100%)',
         }}
       >
         <Stack alignItems="center" spacing={2}>
-          <CircularProgress size={60} sx={{ color: '#fca5a5' }} />
-          <Typography variant="h6" sx={{ color: '#fecaca', fontWeight: 300 }}>
+          <CircularProgress size={60} sx={{ color: '#d4b67a' }} />
+          <Typography variant="h6" sx={{ color: '#d4b67a', fontWeight: 300 }}>
             Cargando invitación...
           </Typography>
         </Stack>
@@ -85,15 +86,15 @@ export default function InvitacionPage() {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 50%, #991b1b 100%)',
+          background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 50%, #2c1810 100%)',
         }}
       >
         <Stack alignItems="center" spacing={2}>
-          <GraduationCapIcon sx={{ fontSize: 80, color: '#fca5a5' }} />
-          <Typography variant="h4" sx={{ color: '#fef2f2', fontWeight: 300 }}>
+          <GraduationCapIcon sx={{ fontSize: 80, color: '#d4b67a' }} />
+          <Typography variant="h4" sx={{ color: '#f5f3f0', fontWeight: 300 }}>
             Invitación no encontrada
           </Typography>
-          <Typography sx={{ color: '#fecaca' }}>
+          <Typography sx={{ color: '#d4b67a' }}>
             Por favor, verifica el enlace de tu invitación.
           </Typography>
         </Stack>
@@ -105,7 +106,7 @@ export default function InvitacionPage() {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #7f1d1d 0%, #dc2626 50%, #991b1b 100%)',
+        background: 'linear-gradient(135deg, #2c1810 0%, #4a1229 50%, #2c1810 100%)',
         py: { xs: 4, md: 6 },
         px: 2,
       }}
@@ -132,7 +133,7 @@ export default function InvitacionPage() {
           {/* Header con logo */}
           <Box
             sx={{
-              background: 'linear-gradient(180deg, #dc2626 0%, #991b1b 100%)',
+              background: 'linear-gradient(180deg, #6b1b3d 0%, #4a1229 100%)',
               py: 3,
               px: 2,
               display: 'flex',
@@ -145,6 +146,8 @@ export default function InvitacionPage() {
                 width: { xs: 120, md: 150 },
                 height: { xs: 120, md: 150 },
                 position: 'relative',
+                borderRadius: '20%',
+                overflow: 'hidden',
               }}
             >
               <Image
@@ -175,15 +178,18 @@ export default function InvitacionPage() {
                   position: 'relative',
                   borderRadius: '50%',
                   overflow: 'hidden',
-                  border: '6px solid #dc2626',
-                  boxShadow: '0 10px 30px rgba(220, 38, 38, 0.3)',
+                  border: '6px solid #6b1b3d',
+                  boxShadow: '0 10px 30px rgba(107, 27, 61, 0.4)',
                 }}
               >
                 <Image
                   src="/images/foto-graduada.png"
                   alt="Noemí Rocha Choque"
                   fill
-                  style={{ objectFit: 'cover', objectPosition: 'center 0%' }}
+                  style={{ 
+                    objectFit: 'cover',
+                    objectPosition: 'center 0%',
+                  }}
                   priority
                 />
               </Box>
@@ -196,7 +202,7 @@ export default function InvitacionPage() {
                 sx={{
                   fontSize: { xs: '2rem', md: '3rem' },
                   fontWeight: 700,
-                  color: '#7f1d1d',
+                  color: '#4a1229',
                   mb: 1,
                 }}
               >
@@ -207,7 +213,7 @@ export default function InvitacionPage() {
                 sx={{
                   fontSize: { xs: '1.5rem', md: '2rem' },
                   fontWeight: 600,
-                  color: '#991b1b',
+                  color: '#6b1b3d',
                   mb: 1,
                 }}
               >
@@ -216,7 +222,7 @@ export default function InvitacionPage() {
               <Typography
                 variant="h6"
                 sx={{
-                  color: '#dc2626',
+                  color: '#8b2350',
                   fontWeight: 400,
                   fontStyle: 'italic',
                 }}
@@ -226,10 +232,10 @@ export default function InvitacionPage() {
               <Divider
                 sx={{
                   width: 128,
-                  height: 4,
+                  height: 3,
                   mx: 'auto',
                   mt: 2,
-                  background: 'linear-gradient(90deg, transparent, #dc2626, transparent)',
+                  background: 'linear-gradient(90deg, transparent, #c9a961, transparent)',
                   border: 'none',
                 }}
               />
@@ -240,7 +246,7 @@ export default function InvitacionPage() {
               <Typography
                 variant="body1"
                 sx={{
-                  color: '#374151',
+                  color: '#2c2421',
                   fontWeight: 600,
                   fontSize: '1.1rem',
                 }}
@@ -253,12 +259,12 @@ export default function InvitacionPage() {
             <Box sx={{ textAlign: 'center', mb: 5 }}>
               <Typography
                 variant="h6"
-                sx={{ color: '#7f1d1d', fontWeight: 400, mb: 2 }}
+                sx={{ color: '#4a1229', fontWeight: 400, mb: 2 }}
               >
                 Querido/a{' '}
                 <Box
                   component="span"
-                  sx={{ fontWeight: 700, color: '#991b1b' }}
+                  sx={{ fontWeight: 700, color: '#6b1b3d' }}
                 >
                   {guest.nombre} {guest.apellido}
                 </Box>
@@ -266,7 +272,7 @@ export default function InvitacionPage() {
               <Typography
                 variant="body1"
                 sx={{
-                  color: '#374151',
+                  color: '#2c2421',
                   lineHeight: 1.8,
                   maxWidth: 600,
                   mx: 'auto',
@@ -278,30 +284,32 @@ export default function InvitacionPage() {
               </Typography>
             </Box>
 
-            {/* Detalles del evento */}
+            {/* Detalles del ACTO DE GRADUACIÓN */}
             <Paper
               elevation={0}
               sx={{
                 border: '2px solid',
-                borderColor: '#fca5a5',
+                borderColor: '#c9a961',
                 borderRadius: 3,
                 py: 4,
                 px: 2,
-                mb: 4,
-                background: 'linear-gradient(180deg, #fef2f2 0%, #ffffff 100%)',
+                mb: 3,
+                background: 'linear-gradient(180deg, #f5f3f0 0%, #ffffff 100%)',
               }}
             >
-              <Typography
-                variant="h5"
-                sx={{
-                  textAlign: 'center',
-                  color: '#7f1d1d',
-                  mb: 4,
-                  fontWeight: 700,
-                }}
-              >
-                Detalles del Acto de Graduación
-              </Typography>
+              <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={3}>
+                <GraduationCapIcon sx={{ color: '#6b1b3d', fontSize: 32 }} />
+                <Typography
+                  variant="h5"
+                  sx={{
+                    textAlign: 'center',
+                    color: '#4a1229',
+                    fontWeight: 700,
+                  }}
+                >
+                  Acto de Graduación
+                </Typography>
+              </Stack>
 
               <Stack spacing={3}>
                 <Stack 
@@ -310,8 +318,8 @@ export default function InvitacionPage() {
                   justifyContent="center" 
                   spacing={2}
                 >
-                  <CalendarIcon sx={{ color: '#dc2626', fontSize: 32 }} />
-                  <Typography variant="body1" sx={{ color: '#374151', fontSize: '1.1rem' }}>
+                  <CalendarIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
                     <strong>Fecha:</strong> Jueves, 12 de Diciembre 2024
                   </Typography>
                 </Stack>
@@ -322,8 +330,8 @@ export default function InvitacionPage() {
                   justifyContent="center" 
                   spacing={2}
                 >
-                  <ClockIcon sx={{ color: '#dc2626', fontSize: 32 }} />
-                  <Typography variant="body1" sx={{ color: '#374151', fontSize: '1.1rem' }}>
+                  <ClockIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
                     <strong>Hora:</strong> 14:30 (2:30 PM)
                   </Typography>
                 </Stack>
@@ -334,12 +342,12 @@ export default function InvitacionPage() {
                   justifyContent="center" 
                   spacing={2}
                 >
-                  <MapPinIcon sx={{ color: '#dc2626', fontSize: 32 }} />
+                  <MapPinIcon sx={{ color: '#6b1b3d', fontSize: 28 }} />
                   <Typography 
                     variant="body1" 
                     sx={{ 
-                      color: '#374151', 
-                      fontSize: '1.1rem',
+                      color: '#2c2421', 
+                      fontSize: '1.05rem',
                       textAlign: { xs: 'center', sm: 'left' },
                     }}
                   >
@@ -347,6 +355,73 @@ export default function InvitacionPage() {
                   </Typography>
                 </Stack>
               </Stack>
+            </Paper>
+
+            {/* Detalles del FESTEJO */}
+            <Paper
+              elevation={0}
+              sx={{
+                border: '2px solid',
+                borderColor: '#d4b67a',
+                borderRadius: 3,
+                py: 4,
+                px: 2,
+                mb: 4,
+                background: 'linear-gradient(180deg, #fffbf5 0%, #ffffff 100%)',
+              }}
+            >
+              <Stack direction="row" alignItems="center" justifyContent="center" spacing={1} mb={3}>
+                <CelebrationIcon sx={{ color: '#c9a961', fontSize: 32 }} />
+                <Typography
+                  variant="h5"
+                  sx={{
+                    textAlign: 'center',
+                    color: '#6b1b3d',
+                    fontWeight: 700,
+                  }}
+                >
+                  Festejo de Celebración
+                </Typography>
+              </Stack>
+
+              <Stack spacing={3}>
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  alignItems="center" 
+                  justifyContent="center" 
+                  spacing={2}
+                >
+                  <CalendarIcon sx={{ color: '#c9a961', fontSize: 28 }} />
+                  <Typography variant="body1" sx={{ color: '#2c2421', fontSize: '1.05rem' }}>
+                    <strong>Fecha:</strong> Después del acto de graduación
+                  </Typography>
+                </Stack>
+
+                <Stack 
+                  direction={{ xs: 'column', sm: 'row' }} 
+                  alignItems="center" 
+                  justifyContent="center" 
+                  spacing={2}
+                >
+                  <MapPinIcon sx={{ color: '#c9a961', fontSize: 28 }} />
+                  <Typography 
+                    variant="body1" 
+                    sx={{ 
+                      color: '#2c2421', 
+                      fontSize: '1.05rem',
+                      textAlign: { xs: 'center', sm: 'left' },
+                    }}
+                  >
+                    <strong>Lugar:</strong> Pagador entre San Felipe y Arce N° 6660
+                  </Typography>
+                </Stack>
+              </Stack>
+
+              <Box sx={{ textAlign: 'center', mt: 3, p: 2, bgcolor: '#fffbf5', borderRadius: 2 }}>
+                <Typography variant="body2" sx={{ color: '#8b2350', fontStyle: 'italic' }}>
+                  ¡Te esperamos para continuar la celebración! 🎉
+                </Typography>
+              </Box>
             </Paper>
 
             {/* Foto grupal */}
@@ -358,8 +433,8 @@ export default function InvitacionPage() {
                   position: 'relative',
                   borderRadius: 3,
                   overflow: 'hidden',
-                  border: '3px solid #dc2626',
-                  boxShadow: '0 10px 30px rgba(220, 38, 38, 0.2)',
+                  border: '4px solid #6b1b3d',
+                  boxShadow: '0 10px 30px rgba(107, 27, 61, 0.3)',
                 }}
               >
                 <Image
@@ -388,50 +463,21 @@ export default function InvitacionPage() {
               <Paper
                 elevation={0}
                 sx={{
-                  background: '#fef2f2',
+                  background: '#f5f3f0',
                   p: 3,
                   borderRadius: 2,
                   mb: 4,
-                  border: '1px solid #fecaca',
+                  border: '1px solid #d4b67a',
                 }}
               >
                 <Typography
                   variant="body1"
-                  sx={{ color: '#7f1d1d', fontStyle: 'italic', textAlign: 'center' }}
+                  sx={{ color: '#4a1229', fontStyle: 'italic', textAlign: 'center' }}
                 >
                   "{guest.mensaje}"
                 </Typography>
               </Paper>
             )}
-
-            {/* Confirmación */}
-            <Box sx={{ textAlign: 'center' }}>
-              <Button
-                variant="contained"
-                size="large"
-                href={`https://wa.me/59171234567?text=Hola Noemí! Confirmo mi asistencia a tu graduación. ${guest.nombre} ${guest.apellido}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{
-                  background: 'linear-gradient(90deg, #dc2626 0%, #991b1b 100%)',
-                  color: 'white',
-                  px: 6,
-                  py: 2,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  borderRadius: 999,
-                  boxShadow: '0 10px 25px rgba(220, 38, 38, 0.4)',
-                  '&:hover': {
-                    background: 'linear-gradient(90deg, #991b1b 0%, #7f1d1d 100%)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 15px 30px rgba(220, 38, 38, 0.5)',
-                  },
-                  transition: 'all 0.3s ease',
-                }}
-              >
-                Confirmar Asistencia
-              </Button>
-            </Box>
 
             {/* Nota final */}
             <Box sx={{ textAlign: 'center', mt: 4 }}>
@@ -445,14 +491,14 @@ export default function InvitacionPage() {
           <Box
             sx={{
               height: 8,
-              background: 'linear-gradient(90deg, #dc2626 0%, #991b1b 50%, #dc2626 100%)',
+              background: 'linear-gradient(90deg, #6b1b3d 0%, #c9a961 50%, #6b1b3d 100%)',
             }}
           />
         </Paper>
 
         {/* Mensaje al pie */}
         <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Typography variant="body2" sx={{ color: '#fecaca', fontWeight: 500 }}>
+          <Typography variant="body2" sx={{ color: '#d4b67a', fontWeight: 500 }}>
             Esta invitación es personal e intransferible
           </Typography>
         </Box>
