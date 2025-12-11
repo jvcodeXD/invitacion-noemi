@@ -43,6 +43,9 @@ export default function InvitacionPage() {
   const [guest, setGuest] = useState<Guest | null>(null);
   const [loading, setLoading] = useState(true);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  
+  // Detectar si es invitación general
+  const isGeneralInvitation = guestId === 'general';
 
   // Slideshow automático
   useEffect(() => {
@@ -58,6 +61,18 @@ export default function InvitacionPage() {
   useEffect(() => {
     const fetchGuest = async () => {
       if (!guestId) return;
+      
+      // Si es invitación general, crear un guest genérico
+      if (guestId === 'general') {
+        setGuest({
+          id: 'general',
+          nombre: '',
+          apellido: '',
+          mensaje: '',
+        });
+        setLoading(false);
+        return;
+      }
       
       try {
         const docRef = doc(db, 'invitados', guestId);
@@ -294,66 +309,96 @@ export default function InvitacionPage() {
                   ¡Graduación!
                 </Typography>
                 
-                {/* Nombre de Noemí - Diseño Elegante Mejorado */}
+{/* Nombre de Noemí - Texto con efecto dorado brillante */}
+<Box
+  sx={{
+    textAlign: 'center',
+    mb: 3,
+  }}
+>
+  {/* Decoración superior */}
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 2,
+      mb: 3,
+    }}
+  >
+    <Box sx={{ 
+      width: { xs: 60, md: 100 }, 
+      height: 3, 
+      background: 'linear-gradient(90deg, transparent, #f5d45e)',
+      boxShadow: '0 0 10px rgba(245, 212, 94, 0.6)',
+    }} />
+    <Box sx={{ 
+      width: 12, 
+      height: 12, 
+      borderRadius: '50%', 
+      background: '#f5d45e',
+      boxShadow: '0 0 20px rgba(245, 212, 94, 1), 0 0 10px rgba(245, 212, 94, 0.8)',
+    }} />
+    <Box sx={{ 
+      width: { xs: 60, md: 100 }, 
+      height: 3, 
+      background: 'linear-gradient(90deg, #f5d45e, transparent)',
+      boxShadow: '0 0 10px rgba(245, 212, 94, 0.6)',
+    }} />
+  </Box>
 
-                {/* Nombre de Noemí - Como Imagen MÁS GRANDE */}
-                <Box
-                  sx={{
-                    textAlign: 'center',
-                    mb: 3,
-                  }}
-                >
-                  {/* Decoración superior */}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 2,
-                      mb: 3,
-                    }}
-                  >
-                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
-                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
-                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
-                  </Box>
+  {/* Nombre con efecto dorado brillante */}
+  <Typography
+    sx={{
+      fontFamily: "'Great Vibes', 'Allura', 'Alex Brush', cursive",
+      fontSize: { xs: '2.5rem', md: '4rem' },
+      fontWeight: 400,
+      color: '#d4af37',
+      textShadow: `
+        0 0 40px rgba(255, 215, 0, 0.8),
+        0 0 30px rgba(255, 215, 0, 0.6),
+        0 0 20px rgba(212, 175, 55, 0.8),
+        0 2px 4px rgba(0, 0, 0, 0.5)
+      `,
+      letterSpacing: '2px',
+      mb: 2,
+      filter: 'brightness(1.2)',
+    }}
+  >
+    Noemí Sarai Rocha Choque
+  </Typography>
 
-                  {/* Nombre como imagen - MÁS GRANDE */}
-                  <Box
-                    sx={{
-                      position: 'relative',
-                      width: '100%',
-                      maxWidth: { xs: 350, md: 600 }, // Aumentado de 300/500 a 350/600
-                      height: { xs: 100, md: 150 },   // Aumentado de 80/120 a 100/150
-                      mx: 'auto',
-                      mb: 2,
-                      filter: 'drop-shadow(0 4px 20px rgba(201, 169, 97, 0.8))',
-                    }}
-                  >
-                    <Image
-                      src="/images/nombre-noemi.png"
-                      alt="Noemí Rocha Choque"
-                      fill
-                      style={{ objectFit: 'contain' }}
-                      priority
-                    />
-                  </Box>
-
-                  {/* Decoración inferior */}
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: 2,
-                      mt: 3,
-                    }}
-                  >
-                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, transparent, #c9a961)' }} />
-                    <Box sx={{ width: 8, height: 8, borderRadius: '50%', background: '#c9a961' }} />
-                    <Box sx={{ width: { xs: 40, md: 60 }, height: 2, background: 'linear-gradient(90deg, #c9a961, transparent)' }} />
-                  </Box>
-                </Box>
+  {/* Decoración inferior */}
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 2,
+      mt: 3,
+    }}
+  >
+    <Box sx={{ 
+      width: { xs: 60, md: 100 }, 
+      height: 3, 
+      background: 'linear-gradient(90deg, transparent, #f5d45e)',
+      boxShadow: '0 0 10px rgba(245, 212, 94, 0.6)',
+    }} />
+    <Box sx={{ 
+      width: 12, 
+      height: 12, 
+      borderRadius: '50%', 
+      background: '#f5d45e',
+      boxShadow: '0 0 20px rgba(245, 212, 94, 1), 0 0 10px rgba(245, 212, 94, 0.8)',
+    }} />
+    <Box sx={{ 
+      width: { xs: 60, md: 100 }, 
+      height: 3, 
+      background: 'linear-gradient(90deg, #f5d45e, transparent)',
+      boxShadow: '0 0 10px rgba(245, 212, 94, 0.6)',
+    }} />
+  </Box>
+</Box>
 
                 {/* Carrera con color de la imagen */}
                 <Typography
@@ -397,18 +442,33 @@ export default function InvitacionPage() {
 
               {/* Mensaje personal familiar */}
               <Box sx={{ textAlign: 'center', mb: 5, mt: 5 }}>
-                <Typography
-                  variant="h6"
-                  sx={{ color: '#f5f3f0', fontWeight: 400, mb: 2 }}
-                >
-                  Querido/a{' '}
-                  <Box
-                    component="span"
-                    sx={{ fontWeight: 700, color: '#d4b67a' }}
+                {!isGeneralInvitation ? (
+                  <Typography
+                    variant="h6"
+                    sx={{ color: '#f5f3f0', fontWeight: 400, mb: 2 }}
                   >
-                    {guest.nombre} {guest.apellido}
-                  </Box>
-                </Typography>
+                    Querido/a{' '}
+                    <Box
+                      component="span"
+                      sx={{ fontWeight: 700, color: '#d4b67a' }}
+                    >
+                      {guest.nombre} {guest.apellido}
+                    </Box>
+                  </Typography>
+                ) : (
+                  <Typography
+                    variant="h5"
+                    sx={{ 
+                      color: '#d4b67a', 
+                      fontWeight: 600, 
+                      mb: 2,
+                      fontSize: { xs: '1.5rem', md: '1.8rem' },
+                      letterSpacing: '1px',
+                    }}
+                  >
+                    Querida Familia y Amigos
+                  </Typography>
+                )}
                 
                 <Paper
                   elevation={0}
@@ -684,8 +744,8 @@ export default function InvitacionPage() {
                 </Typography>
               </Box>
 
-              {/* Mensaje adicional */}
-              {guest.mensaje && (
+              {/* Mensaje adicional - Solo para invitaciones personales */}
+              {!isGeneralInvitation && guest.mensaje && (
                 <Paper
                   elevation={0}
                   sx={{
