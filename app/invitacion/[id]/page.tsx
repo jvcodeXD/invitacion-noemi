@@ -444,16 +444,16 @@ export default function InvitacionPage() {
               <Box sx={{ textAlign: 'center', mb: 5, mt: 5 }}>
                 {!isGeneralInvitation ? (
                   <Typography
-                    variant="h6"
-                    sx={{ color: '#f5f3f0', fontWeight: 400, mb: 2 }}
+                    variant="h5"
+                    sx={{ 
+                      color: '#d4b67a', 
+                      fontWeight: 600, 
+                      mb: 2,
+                      fontSize: { xs: '1.5rem', md: '1.8rem' },
+                      letterSpacing: '1px',
+                    }}
                   >
-                    Querido/a{' '}
-                    <Box
-                      component="span"
-                      sx={{ fontWeight: 700, color: '#d4b67a' }}
-                    >
-                      {guest.nombre} {guest.apellido}
-                    </Box>
+                    Querida Familia y Amigos
                   </Typography>
                 ) : (
                   <Typography
@@ -558,7 +558,7 @@ export default function InvitacionPage() {
                   >
                     <CalendarIcon sx={{ color: '#d4b67a', fontSize: 28 }} />
                     <Typography variant="body1" sx={{ color: '#f5f3f0', fontSize: '1.05rem', fontWeight: 500 }}>
-                      <strong>Fecha:</strong> Viernes, 12 de Diciembre 2024
+                      <strong>Fecha:</strong> Viernes, 12 de Diciembre 2025
                     </Typography>
                   </Stack>
 
@@ -745,7 +745,7 @@ export default function InvitacionPage() {
               </Box>
 
               {/* Mensaje adicional - Solo para invitaciones personales */}
-              {!isGeneralInvitation && guest.mensaje && (
+              {/* {!isGeneralInvitation && guest.mensaje && (
                 <Paper
                   elevation={0}
                   sx={{
@@ -764,7 +764,7 @@ export default function InvitacionPage() {
                     "{guest.mensaje}"
                   </Typography>
                 </Paper>
-              )}
+              )} */}
 
               {/* Nota final */}
               <Box sx={{ textAlign: 'center', mt: 4 }}>
@@ -783,12 +783,6 @@ export default function InvitacionPage() {
             />
           </Paper>
 
-          {/* Mensaje al pie */}
-          <Box sx={{ textAlign: 'center', mt: 4 }}>
-            <Typography variant="body2" sx={{ color: '#d4b67a', fontWeight: 500 }}>
-              Esta invitación es personal e intransferible
-            </Typography>
-          </Box>
         </Container>
       </Box>
     </Box>
