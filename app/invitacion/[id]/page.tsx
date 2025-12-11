@@ -558,7 +558,7 @@ export default function InvitacionPage() {
                   >
                     <CalendarIcon sx={{ color: '#d4b67a', fontSize: 28 }} />
                     <Typography variant="body1" sx={{ color: '#f5f3f0', fontSize: '1.05rem', fontWeight: 500 }}>
-                      <strong>Fecha:</strong> Jueves, 12 de Diciembre 2024
+                      <strong>Fecha:</strong> Viernes, 12 de Diciembre 2024
                     </Typography>
                   </Stack>
 
